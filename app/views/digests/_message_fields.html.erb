@@ -1,0 +1,8 @@
+<div class="nested-fields">
+  <%= render 'messages/form', f: f %>
+  <%= link_to_remove_association f, class: 'button' do %>
+    <span class="icon is-small is-left">
+      <i class="fa fa-trash"></i>
+    </span>
+  <% end %>
+</div>

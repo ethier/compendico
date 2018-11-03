@@ -1,0 +1,19 @@
+<tr id="<%= digest.id %>">
+  <td class="from"><%= digest.persisted? ? digest.from_email.try(:address) : '' %></td>
+  <td class="to"><%= digest.persisted? ? digest.to_email.try(:address) : '' %></td>
+  <td class="subject"><%= digest.persisted? ? link_to(digest.subject, edit_organization_digest_path(@organization, digest)) : '' %></td>
+  <td class="frequency"><%= digest.frequency %></td>
+  <td class="interval"><%= digest.persisted? ? t("frequencies.#{digest.interval}") : '' %></td>
+  <td class="state"><%= digest.persisted? ? t("states.digest.#{digest.state}") : '' %></td>
+  <td class="send_at"><%= digest.persisted? ? l(digest.send_at, format: :short) : '' %></td>
+  <td class="next_send_at"><%= digest.persisted? ? l(digest.next_send_at, format: :short) : '' %></td>
+  <td class="size"><%= digest.messages.try(:size) %></td>
+  <td>
+    <% if digest.persisted? %>
+      <a href="<%= organization_digest_path(id: digest.id, organization_id: @organization.id) %>">
+        <i class="fa fa-eye" aria-hidden="true"></i>
+      </a>
+    <% end %>
+    <a class="delete"></a>
+  </td>
+</tr>

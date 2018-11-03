@@ -1,0 +1,41 @@
+<div class="columns">
+  <div class="column is-4">
+    <div class="card">
+      <div class="card-content">
+        <div class="media">
+          <div class="media-left">
+            <figure class="image is-48x48">
+              <img src="<%= current_user.try(:gravatar_url) %>" alt="<%= t(:avatar) %>" class="card-avatar-img">
+            </figure>
+          </div>
+          <div class="media-content">
+            <p class="title is-4"><%= current_user.try(:name) %></p>
+            <p class="subtitle is-6"><%= current_user.try(:email) %></p>
+          </div>
+        </div>
+        <div class="content">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Phasellus nec iaculis mauris. <a>@bulmaio</a>.
+            <a href="#">#css</a> <a href="#">#responsive</a>
+            <br>
+            <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="column is-8">
+    <%= content_tag :h2, class: 'title' do %>
+      <%= t(:organizations) %>
+    <% end %>
+
+    <%= render 'organizations/list' %>
+
+    <nav class="level">
+      <div class="level-right">
+        <p class="level-item">
+          <%= link_to t(:create), new_organization_path, class: 'button is-success' %>
+        </p>
+      </div>
+    </nav>
+  </div>
+</div>

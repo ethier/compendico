@@ -1,0 +1,19 @@
+<div class="columns">
+  <div class="column is-half is-offset-one-quarter">
+    <%= breadcrumb(@organization) do %>
+      <%= content_tag(:li, link_to(t(:templates), organization_templates_path(@organization))) %>
+    <% end %>
+
+    <%= content_tag :h1, t(:template_setup), class: 'title' %>
+
+    <%= form_for @template, url: organization_templates_path do |f| %>
+      <%= render 'form', f: f %>
+
+      <div class="field">
+        <p class="control">
+          <%= f.submit t(:create), class: 'button is-success' %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+</div>

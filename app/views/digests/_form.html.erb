@@ -1,0 +1,101 @@
+<div class="field">
+  <%= f.label :subject, class: 'label' %>
+  <p class="control has-icons-left">
+    <%= f.text_field :subject, class: 'input is-medium' %>
+    <span class="icon is-small is-left">
+      <i class="fa fa-inbox" aria-hidden="true"></i>
+    </span>
+  </p>
+</div>
+
+<div class="field">
+  <%= f.label :from_email, class: 'label' %>
+  <p class="control has-icons-left">
+    <%= f.hidden_field :from_email_id, value: f.object.from_email.present? ? f.object.from_email.id : nil %>
+    <%= f.text_field :from_email, type: :email, class: 'awesomplete-from-email input is-medium', value: f.object.from_email.present? ? f.object.from_email.address : nil, data: { url: organization_emails_path } %>
+    <span class="icon is-small is-left">
+      <i class="fa fa-calendar" aria-hidden="true"></i>
+    </span>
+  </p>
+</div>
+
+<div class="spacer"></div>
+
+<%= content_tag :h3, t(:schedule_instructions), class: 'subtitle' %>
+<%= content_tag :p, t(:schedule_instructions_text).html_safe %>
+
+<div class="spacer"></div>
+
+<div class="field">
+  <%= f.label :frequency, class: 'label' %>
+  <p class="control has-icons-left">
+    <%= f.number_field :frequency, class: 'input is-medium' %>
+    <span class="icon is-small is-left">
+      <i class="fa fa-calendar" aria-hidden="true"></i>
+    </span>
+  </p>
+</div>
+
+<div class="field">
+  <%= f.label :interval, class: 'label' %>
+  <p class="control has-icons-left">
+    <span class="select is-medium">
+      <%= f.select :interval, Compendico::Digest.intervals.map { |f| [t("intervals.#{f}"), f] }, {}, { class: 'is-medium' } %>
+    </span>
+    <span class="icon is-small is-left">
+      <i class="fa fa-calendar" aria-hidden="true"></i>
+    </span>
+  </p>
+</div>
+
+<div class="field">
+  <%= f.label :send_at, class: 'label' %>
+  <p class="control has-icons-left">
+    <%= f.date_field :send_at, class: 'input is-medium' %>
+    <span class="icon is-small is-left">
+      <i class="fa fa-calendar" aria-hidden="true"></i>
+    </span>
+  </p>
+</div>
+
+<div class="spacer"></div>
+
+<%= content_tag :h3, t(:template), class: 'subtitle' %>
+
+<div class="field">
+  <%= f.label :template_id, class: 'label' %>
+  <p class="control has-icons-left">
+    <span class="select is-medium">
+      <%= f.select :template_id, @templates.collect { |t| [ t.name, t.id ] }, { include_blank: "-- #{t(:select)} --" }, { class: 'is-medium' } %>
+    </span>
+    <span class="icon is-small is-left">
+      <i class="fa fa-clone" aria-hidden="true"></i>
+    </span>
+  </p>
+</div>
+
+<div class="field">
+  <%= f.label :text, class: 'label is-medium' %>
+  <p class="control">
+    <%= f.text_area :text, class: 'textarea is-medium', rows: '5' %>
+  </p>
+</div>
+
+<div class="field">
+  <%= f.label :data, class: 'label is-medium' %>
+  <p class="control">
+    <%= f.text_area :data, class: 'textarea is-medium', rows: '5' %>
+  </p>
+</div>
+
+<div class="messages-list">
+  <%= content_tag :h3, t(:messages) %>
+
+  <%= f.fields_for :messages do |message| %>
+    <%= render 'message_fields', f: message %>
+  <% end %>
+
+  <div class="links">
+    <%= link_to_add_association t(:add_message), f, :messages, class: 'button' %>
+  </div>
+</div>

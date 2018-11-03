@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= t(:root_address) %></title>
+    <%= csrf_meta_tags %>
+
+    <%= action_cable_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%#= stylesheet_link_tag 'application', media: 'all' %>
+
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%#= javascript_include_tag 'application' %>
+    <%= javascript_pack_tag 'application' %>
+  </head>
+
+  <body data-no-turbolink="<%= @data_no_turbolink %>">
+    <nav class="navbar has-shadow" id="top" role="navigation" aria-label="main navigation">
+      <div class="container">
+        <div class="navbar-brand">
+          <div class="image is-32x32 brand-avatar">
+            <%= link_to '/', class: 'navbar-item' do %>
+              <span class="brand-initials">CO</span>
+            <% end %>
+          </div>
+          <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="compendico-navbar">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+        <div class="navbar-menu" id="compendico-navbar">
+          <div class="navbar-start">
+            <%= link_to t(:about), about_path, class: 'navbar-item is-tab' %>
+            <%= link_to t(:pricing), pricing_path, class: 'navbar-item is-tab' %>
+            <%= link_to t(:documentation), documentation_path, class: 'navbar-item is-tab' %>
+            <%#= link_to t(:support), support_path, class: 'navbar-item is-tab' %>
+          </div>
+          <div class="navbar-end">
+            <span class="navbar-item">
+              <% if user_signed_in? %>
+                <%= link_to t(:account), account_path, class: 'navbar-item' %>
+                <%= link_to t(:signout), destroy_user_session_path, class: 'navbar-item', data: { method: 'destroy' } %>
+              <% else %>
+                <%= link_to t(:signin), new_user_session_path, class: 'navbar-item' %>
+                <%= link_to t(:signup), new_user_registration_path, class: 'navbar-item' %>
+              <% end %>
+            </span>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section class="section">
+      <div class="container">
+        <%= flash_helper %>
+
+        <%= yield %>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="content has-text-centered">
+          <p>
+            <strong><%= t(:root_address) %></strong>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.3/js/tether.min.js"></script>
+
+    <script>
+      <%= yield :footer_js %>
+    </script>
+  </body>
+</html>

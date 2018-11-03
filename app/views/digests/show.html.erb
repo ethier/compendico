@@ -1,0 +1,8 @@
+<div class="columns">
+  <div class="column is-half is-offset-one-quarter">
+    <%= link_to "<i class=\"fa fa-arrow-left\" aria-hidden=\"true\"></i> #{@organization.name}".html_safe, organization_path(@organization) %>
+    <h2><%= t(:digest_preview, subject: @digest.subject) %></h2>
+
+    <%= @digest.render.html_safe %>
+  </div>
+</div>

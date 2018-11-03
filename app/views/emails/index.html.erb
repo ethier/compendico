@@ -1,0 +1,8 @@
+<%= breadcrumb(@organization) %>
+
+<%= content_tag :h1, class: 'title' do %>
+  <%= t(:emails) %>
+<% end %>
+
+<%= render 'list', emails: @emails %>
+

@@ -1,0 +1,8 @@
+<tr id="<%= template.id %>">
+  <td class="name"><%= link_to template.name, edit_organization_template_path(@organization, template) %></td>
+  <td class="type"><%= t template.category %></td>
+  <td class="size"><%= template.messages.size %></td>
+  <td>
+    <%= link_to '', organization_template_path(template.organization, template), method: :delete, class: 'delete', data: { confirm: t(:are_you_sure) } %>
+  </td>
+</tr>

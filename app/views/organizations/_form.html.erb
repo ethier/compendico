@@ -1,0 +1,87 @@
+<div class="field">
+  <%= f.label :name, class: 'label required' %>
+  <p class="control has-icons-left">
+    <%= f.text_field :name, class: 'input', required: true %>
+    <span class="icon is-small is-left">
+      <i class="fa fa-sitemap" aria-hidden="true"></i>
+    </span>
+  </p>
+</div>
+
+<div class="field">
+  <%= f.label :website, class: 'label' %>
+  <p class="control has-icons-left">
+    <%= f.text_field :website, class: 'input is-medium' %>
+    <span class="icon is-small is-left">
+      <i class="fa fa-hand-pointer" aria-hidden="true"></i>
+    </span>
+  </p>
+</div>
+
+<div class="field">
+  <%= f.fields_for :from_email do |ff| %>
+    <%= ff.label :from_email, class: 'label' %>
+    <p class="control has-icons-left">
+      <%= ff.email_field :address, class: 'input is-medium' %>
+      <span class="icon is-small is-left">
+        <i class="fa fa-reply" aria-hidden="true"></i>
+      </span>
+    </p>
+  <% end %>
+</div>
+
+<div class="spacer"></div>
+
+<%= content_tag :h2, t(:plan), class: 'title' %>
+
+<div class="field">
+  <div class="control">
+    <% @plans.each do |plan| %>
+      <%= f.label :plan_id, class: 'box box-radio' do %>
+        <%= f.radio_button :plan_id, plan.id, class: 'radio' %>
+        <%= content_tag :strong, plan.name %>
+        <%= content_tag :p, 'Sample details for the plan' %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="spacer"></div>
+
+<%= content_tag :h2, t(:mail_service), class: 'title' %>
+
+<div class="field">
+  <div class="control">
+    <% @mail_services.each do |mail_service| %>
+      <%= f.label :mail_service_id, class: 'box box-radio' do %>
+        <%= f.radio_button :mail_service_id, mail_service.id, class: 'radio' %>
+        <%= content_tag :strong, mail_service.name %>
+        <%= content_tag :p, mail_service.description %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="field">
+  <%= f.label :mail_service_api_key, class: 'label' %>
+  <p class="control has-icons-left">
+    <%= f.text_field :mail_service_api_key, class: 'input is-medium' %>
+    <span class="icon is-small is-left">
+      <i class="fa fa-key" aria-hidden="true"></i>
+    </span>
+  </p>
+</div>
+
+<div class="spacer"></div>
+
+<%= content_tag :h2, t(:webhook), class: 'title' %>
+
+<div class="field">
+  <%= f.label :webhook_callback_url, class: 'label' %>
+  <p class="control has-icons-left">
+    <%= f.text_field :webhook_callback_url, class: 'input is-medium' %>
+    <span class="icon is-small is-left">
+      <i class="fa fa-hand-point-left" aria-hidden="true"></i>
+    </span>
+  </p>
+</div>

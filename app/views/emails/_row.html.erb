@@ -1,0 +1,9 @@
+<tr id="<%= email.id %>">
+  <td class="address"><%= link_to email.address, edit_organization_email_path(@organization, email) %></td>
+  <td class="sender"><%= t email.sender %></td>
+  <td class="to_email_count"><%= email.to_email_count %></td>
+  <td class="from_email_count"><%= email.from_email_count %></td>
+  <td>
+    <%= link_to '', organization_email_path(email.organization, email), method: :delete, class: 'delete', data: { confirm: t(:are_you_sure) } %>
+  </td>
+</tr>

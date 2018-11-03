@@ -1,0 +1,96 @@
+en:
+  about: About
+  account: Account
+  add_message: Add message
+  address: Address
+  api_key: API key
+  are_you_sure: Are you sure?
+  avatar: Avatar
+  category: Category
+  click_to_show: Click to show
+  create: Create
+  credits: Credits
+  documentation: Documentation
+  digest: Digest
+  digest_created: Digest "%{subject}" created successfully
+  digest_preview: Digest "%{subject}" preview
+  digest_updated: Digest "%{subject}" updated successfully
+  digests: Digests
+  email: Email
+  email_deleted: Email deleted
+  emails: Emails
+  find_a_digest: Find a digest
+  find_a_template: Find a template
+  find_an_email: Find an email address
+  frequencies:
+    day: Day
+    hour: Hour
+    immediate: Immediate
+    month: Month
+    week: Week
+    year: Year
+  frequency: Frequency
+  from: From
+  from_email: From email
+  from_email_count: From email count
+  general: General
+  interval: Interval
+  mail_service: Mail service
+  mail_service_api_key: Mail service API key
+  message_count: Message count
+  name: Name
+  next_send_at: Next send at
+  no_digests: No digests
+  no_emails: No emails
+  no_templates: No templates
+  number:
+    human:
+      decimal_units:
+        format: "%n%u"
+        units:
+          unit: ""
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
+  organization: Organization
+  organization_deleted: Organization deleted
+  organizations: Organizations
+  organization_setup: Organization Setup
+  plan: Plan
+  pricing: Pricing
+  queued: Queued
+  remove_message: Remove message
+  renew_automatically: Renew Automatically
+  root_address: compendi.co
+  schedule_instructions: Schedule instructions
+  schedule_instructions_text: "Sounds complicated, but it really isn't. An example, if you want to send an email weekly starting today, then it's <em>1 interval</em> with a <em>weekly frequency</em> with <em>send at set to today's date</em>."
+  search: Search
+  select: Select
+  send_at: Send at
+  sender: Sender
+  settings: Settings
+  signin: Sign in
+  signout: Sign out
+  signup: Sign up
+  state: State
+  states:
+    digest:
+      queued: Queued
+      sending: Sending
+      sent: Sent
+      failed: Failed
+  subject: Subject
+  support: Support
+  template: Template
+  template_categories:
+    digest: Digest
+    message: Message
+  template_deleted: Template deleted
+  templates: Templates
+  to: To
+  to_email: To email
+  to_email_count: To email count
+  update: Update
+  webhook: Webhook

@@ -1,0 +1,136 @@
+<div class="container">
+  <div class="box">
+    <!-- Main container -->
+    <nav class="level">
+      <!-- Left side -->
+      <div class="level-left">
+        <% if @digests.size > 0 %>
+          <%= search_form_for @q, url: organization_digests_path(@organization) do |f| %>
+            <div class="level-item has-addons">
+              <p class="control">
+                <%= f.search_field :to_email_address_or_from_email_address_or_subject_cont, type: 'text', class: 'input', placeholder: t(:find_a_digest) %>
+              </p>
+              <p class="control">
+                <a class="button">
+                  <span class="icon is-small">
+                    <i class="fas fa-search"></i>
+                  </span>
+                </a>
+              </p>
+            </div>
+          <% end %>
+        <% else %>
+          <%= t(:no_digests) %>
+        <% end %>
+      </div>
+
+      <!-- Right side -->
+      <div class="level-right">
+        <p class="level-item">
+          <%= link_to organization_digests_path(organization_id: @organization.id, filter: :queued) do %>
+            <span class="icon">
+            <i class="fa fa-pause"></i></span> <span><%= t(:queued) %></span>
+          <% end %>
+        </p>
+        <p class="level-item">
+          <%= link_to organization_digests_path(organization_id: @organization.id, filter: :sent) do %>
+            <span class="icon">
+            <i class="fa fa-paper-plane"></i></span> <span><%= t(:sent) %></span>
+          <% end %>
+        </p>
+        <p class="level-item">
+          <%= link_to organization_digests_path(organization_id: @organization.id, filter: :failed) do %>
+            <span class="icon">
+            <i class="fa fa-exclamation"></i></span> <span><%= t(:failed) %></span>
+          <% end %>
+        </p>
+        <p class="level-item">
+          <%= link_to t(:new), new_organization_digest_path(organization_id: @organization.id), class: 'button is-success' %>
+        </p>
+      </div>
+    </nav>
+  </div>
+
+  <div class="spacer"></div>
+
+  <p class="subtitle is-5">
+    <strong><%= @digests.size %></strong> <%= t(:digests).downcase %>
+  </p>
+
+  <% if @digests.size > 0 %>
+    <div class="columns">
+      <table class="table is-fullwidth is-striped">
+        <thead>
+          <tr>
+            <th><%= sort_link(@q, :from_email_address, t(:from)) %></th>
+            <th><%= sort_link(@q, :to_email_address, t(:to)) %></th>
+            <th><%= sort_link(@q, :subject, t(:subject)) %></th>
+            <th><%= t(:frequency) %></th>
+            <th><%= t(:interval) %></th>
+            <th><%= sort_link(@q, :state, t(:state)) %></th>
+            <th><%= sort_link(@q, :send_at, t(:send_at)) %></th>
+            <th><%= sort_link(@q, :next_send_at, t(:next_send_at)) %></th>
+            <th><%= sort_link(@q, :message_count, t(:message_count)) %></th>
+            <th></th>
+          </tr>
+        </thead>
+        <% if @digests.size > 10 %>
+          <tfoot>
+            <tr>
+              <th><%= sort_link(@q, :from_email_address, t(:from)) %></th>
+              <th><%= sort_link(@q, :to_email_address, t(:to)) %></th>
+              <th><%= sort_link(@q, :subject, t(:subject)) %></th>
+              <th><%= t(:frequency) %></th>
+              <th><%= t(:interval) %></th>
+              <th><%= sort_link(@q, :state, t(:state)) %></th>
+              <th><%= sort_link(@q, :send_at, t(:send_at)) %></th>
+              <th><%= sort_link(@q, :next_send_at, t(:next_send_at)) %></th>
+              <th><%= sort_link(@q, :message_count, t(:message_count)) %></th>
+              <th></th>
+            </tr>
+          </tfoot>
+        <% end %>
+        <tbody id="digests-table">
+          <%= @digests.find_each do |digest| %>
+            <%= render 'digests/row', digest: digest %>
+          <% end if @digests.any? %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+
+  <% content_for :footer_js do %>
+    App.digest = App.cable.subscriptions.create(
+      {
+        channel: 'ApplicationCable::DigestChannel',
+        organization_id: '<%= @organization.id %>'
+      },
+      {
+        received(data) {
+          return this.createUpdateLine(data);
+        },
+        createUpdateLine(data) {
+          const attrs = ['from','to','subject','frequency','interval','state','send_at','next_send_at','size'];
+
+          let html = $('<%= render('digests/row', digest: Compendico::Digest.new).gsub("\n", '').html_safe %>');
+
+          $.each(attrs, function(index, attr) {
+            html.find('.' + attr).html(data[attr]);
+          });
+
+          if ($('#' + data.id).length) {
+            $('#' + data.id).replaceWith(html);
+          }
+          else {
+            $('#digests-table').append(html);
+          }
+
+          $('#queued-digests-count').html(data.queued_digests_count);
+          $('#sent-digests-count').html(data.sent_digests_count);
+          $('#failed-digests-count').html(data.failed_digests_count);
+          $('#total-digests-count').html(data.total_digests_count);
+        }
+      }
+    );
+  <% end %>
+</div>

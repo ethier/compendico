@@ -1,0 +1,23 @@
+<table class="table is-fullwidth is-striped">
+  <thead>
+    <tr>
+      <th><%= t(:name) %></th>
+      <th><%= t(:plan) %></th>
+      <th><%= t(:credits) %></th>
+      <th><%= t(:renew_automatically) %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @organizations.find_each do |organization| %>
+      <tr>
+        <td><%= link_to organization.name, organization_path(organization) %></td>
+        <td><%= organization.plan.try(:name) %></td>
+        <td><%= organization.credits %></td>
+        <td><%= organization.renew_automatically == true ? t(:yes) : t(:no) %>
+        <td>
+          <%= link_to '', organization_path(organization), method: :delete, class: 'delete', data: { confirm: t(:are_you_sure) } %>
+        </td>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,60 @@
+<div class="section profile-heading">
+  <div class="columns">
+    <div class="column is-2">
+      <div class="image is-128x128 avatar">
+        <span class="initials"><%= @organization.initials %></span>
+      </div>
+    </div>
+    <div class="column is-4 name">
+      <p>
+        <%= content_tag :span, @organization.name, class: 'title is-bold' %>
+        <%= link_to t(:edit), edit_organization_path(@organization), class: 'button is-primary is-outlined follow' %>
+      </p>
+      <%= content_tag :p, link_to(@organization.website), class: 'tagline' %>
+      <%= content_tag :a, "#{t(:api_key)} : #{t(:click_to_show)}", class: 'button', id: 'api-key-button', data: { turbolinks: false } %>
+      <%= content_tag :span, "#{@organization.api_key}", class: 'is-invisible', id: 'api-key-content' %>
+    </div>
+    <div class="column is-2 followers has-text-centered">
+      <p id="queued-digests-count" class="stat-val">
+        <%= number_to_human @digests.with_state(:queued).try(:size) %>
+      </p>
+      <p class="stat-key"><%= t(:queued) %></p>
+    </div>
+    <div class="column is-2 following has-text-centered">
+      <p id="sent-digests-count" class="stat-val">
+        <%= number_to_human @digests.with_state(:sent).try(:size) %>
+      </p>
+      <p class="stat-key"><%= t(:sent) %></p>
+    </div>
+    <div class="column is-2 likes has-text-centered">
+      <p id="failed-digests-count" class="stat-val">
+        <%= number_to_human @digests.with_state(:failed).try(:size) %>
+      </p>
+      <p class="stat-key"><%= t(:failed) %></p>
+    </div>
+  </div>
+</div>
+<div class="profile-options">
+  <div class="tabs is-fullwidth">
+    <ul>
+      <li class="link">
+        <%= link_to organization_emails_path(organization_id: @organization.id) do %>
+          <span class="icon">
+          <i class="fa fa-email"></i></span> <span><%= t(:emails) %> (<%= @organization.emails_count %>)</span>
+        <% end %>
+      </li>
+      <li class="link">
+        <%= link_to organization_templates_path(organization_id: @organization.id) do %>
+          <span class="icon">
+          <i class="fa fa-file"></i></span> <span><%= t(:templates) %> (<%= @organization.templates_count %>)</span>
+        <% end %>
+      </li>
+      <li class="link">
+        <%= link_to organization_digests_path(organization_id: @organization.id) do %>
+          <span class="icon">
+          <i class="fa fa-envelope"></i></span> <span><%= t(:digests) %> (<%= @organization.digests_count %>)</span>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</div>
