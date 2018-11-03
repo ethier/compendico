@@ -3,7 +3,7 @@ class EmailsController < ApplicationController
   before_action :set_email, only: %i[show edit update destroy]
 
   def index
-    @q = @organization.emails.ransack(address_cont: params[:q])
+    @q = @organization.emails.ransack(params[:q])
     @emails = @q.result(distinct: true).order(:created_at)
 
     respond_to do |format|

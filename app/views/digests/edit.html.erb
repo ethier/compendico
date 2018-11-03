@@ -9,7 +9,7 @@
     <%= form_for @digest, url: organization_digest_path(@organization, @digest) do |f| %>
       <%= render 'form', f: f %>
 
-      <div class="field">
+      <div class="field is-grouped">
         <p class="control">
           <%= f.submit t(:update), class: 'button is-success' %>
           <a class="button remove_fields existing" href="#">
@@ -17,6 +17,13 @@
               <i class="fa fa-trash"></i>
             </span>
           </a>
+        </p>
+        <p class="control">
+          <%= link_to organization_digest_path(@organization, @digest), method: :delete, class: 'button is-link is-danger', data: { confirm: t(:are_you_sure) } do %>
+            <span class="icon is-small is-left">
+              <i class="fa fa-trash"></i>
+            </span>
+          <% end %>
         </p>
       </div>
     <% end %>

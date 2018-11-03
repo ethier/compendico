@@ -19,6 +19,7 @@ en:
   email: Email
   email_deleted: Email deleted
   emails: Emails
+  false: False
   find_a_digest: Find a digest
   find_a_template: Find a template
   find_an_email: Find an email address
@@ -70,6 +71,7 @@ en:
   select: Select
   send_at: Send at
   sender: Sender
+  senders: Senders
   settings: Settings
   signin: Sign in
   signout: Sign out
@@ -92,5 +94,6 @@ en:
   to: To
   to_email: To email
   to_email_count: To email count
+  true: True
   update: Update
   webhook: Webhook

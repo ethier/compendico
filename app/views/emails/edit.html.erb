@@ -9,10 +9,12 @@
     <%= form_for @email, url: organization_email_path(@organization, @email) do |f| %>
       <%= render 'form', f: f %>
 
-      <div class="field">
+      <div class="field is-grouped">
         <p class="control">
           <%= f.submit t(:update), class: 'button is-success' %>
-          <%= link_to organization_email_path(@organization, @email), method: :delete, class: 'delete button remove_fields existing', data: { confirm: t(:are_you_sure) } do %>
+        </p>
+        <p class="control">
+          <%= link_to organization_email_path(@organization, @email), method: :delete, class: 'button is-link is-danger', data: { confirm: t(:are_you_sure) } do %>
             <span class="icon is-small is-left">
               <i class="fa fa-trash"></i>
             </span>

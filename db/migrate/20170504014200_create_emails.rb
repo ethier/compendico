@@ -5,10 +5,11 @@ class CreateEmails < ActiveRecord::Migration[5.1]
 
       t.string :localpart
       t.string :domain
-      t.string :address
+      t.string :address, null: false, index: true
+      t.string :name
       t.datetime :last_sent_at
 
-      t.boolean :sender, default: false
+      t.boolean :sender, null: false, default: false
       t.uuid :sender_invite_token
       t.datetime :sender_invite_sent_at
       t.datetime :sender_invite_accepted_at

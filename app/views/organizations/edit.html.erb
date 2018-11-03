@@ -7,9 +7,16 @@
     <%= form_for @organization, url: organization_path(@organization) do |f| %>
       <%= render 'form', f: f %>
 
-      <div class="field">
+      <div class="field is-grouped">
         <p class="control">
           <%= f.submit t(:update), class: 'button is-success' %>
+        </p>
+        <p class="control">
+          <%= link_to organization_path(@organization), method: :delete, class: 'button is-link is-danger', data: { confirm: t(:are_you_sure) } do %>
+            <span class="icon is-small is-left">
+              <i class="fa fa-trash"></i>
+            </span>
+          <% end %>
         </p>
       </div>
     <% end %>

@@ -61,9 +61,10 @@ ActiveRecord::Schema.define(version: 2017_07_04_013211) do
     t.uuid "organization_id"
     t.string "localpart"
     t.string "domain"
-    t.string "address"
+    t.string "address", null: false
+    t.string "name"
     t.datetime "last_sent_at"
-    t.boolean "sender", default: false
+    t.boolean "sender", default: false, null: false
     t.uuid "sender_invite_token"
     t.datetime "sender_invite_sent_at"
     t.datetime "sender_invite_accepted_at"
@@ -75,6 +76,7 @@ ActiveRecord::Schema.define(version: 2017_07_04_013211) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["address", "organization_id"], name: "index_compendico_emails_on_address_and_organization_id", unique: true
+    t.index ["address"], name: "index_compendico_emails_on_address"
     t.index ["discarded_at"], name: "index_compendico_emails_on_discarded_at"
     t.index ["organization_id"], name: "index_compendico_emails_on_organization_id"
   end

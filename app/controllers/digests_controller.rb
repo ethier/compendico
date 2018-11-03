@@ -17,7 +17,6 @@ class DigestsController < ApplicationController
 
   def new
     @digest = @organization.digests.new
-    # @digest.build_to_email
   end
 
   def create

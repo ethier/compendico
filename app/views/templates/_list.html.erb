@@ -11,11 +11,11 @@
                 <%= f.search_field :name_cont, type: 'text', class: 'input', placeholder: t(:find_a_template) %>
               </p>
               <p class="control">
-                <a class="button">
+                <%= f.button type: 'submit', class: 'button' do %>
                   <span class="icon is-small">
                     <i class="fas fa-search"></i>
                   </span>
-                </a>
+                <% end %>
               </p>
             </div>
           <% end %>
