@@ -23,8 +23,29 @@ class EmailsController < ApplicationController
   def edit
   end
 
+  def update
+    @email.assign_attributes(email_params)
+
+    email = update_email(@email)
+
+    if email.valid?
+      email.save!
+
+      flash[:success] = t(:email_updated, subject: email.address)
+      redirect_to organization_emails_path(@organization)
+    else
+      flash[:alert] = email.errors.full_messages.join(', ')
+      redirect_to action: :edit, id: email.id
+    end
+  end
+
   def destroy
-    # TODO: Cannot allow the discard on org email addresses.
+    # Cannot allow the discard on org email addresses.
+    if @email.organization.from_email_id == @email.id
+      flash[:alert] = t(:primary_organization_email_addresses_cannot_be_deleted)
+      redirect_to organization_emails_url
+    end
+
     @email.discard
     redirect_to organization_emails_url, notice: t(:email_deleted)
   end
@@ -33,5 +54,20 @@ private
 
   def set_email
     @email = @organization.emails.kept.find params[:id]
+  end
+
+  def email_params
+    params
+      .require(:compendico_email)
+      .permit(
+        :address,
+        :name,
+        :sender
+      )
+  end
+
+  def update_email(email)
+    # TODO: Some logic to send out the confirmation on email addresses and accept the sender invite.
+    return email
   end
 end

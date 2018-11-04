@@ -97,5 +97,25 @@ $(function () {
     $('.box-radio input:radio:checked').each(function () {
       box_radio_click($(this).parent('label'));
     });
+
+    $(document).on('click', '.notification > button.delete', function () {
+      $(this).parent().addClass('is-hidden');
+      return false;
+    });
+
+    $('#compendico_template_category').on('change', function() {
+      markup_input = $('#compendico_template_markup');
+      existing_val = markup_input.val();
+
+      if ($(this).val() == 'digest') {
+        if (existing_val.indexOf('{{ digest }}') == -1) {
+          markup_input.val(existing_val + '{{ digest }}');
+        }
+      } else if ($(this).val() == 'message') {
+        if (existing_val.indexOf('{{ message }}') == -1) {
+          markup_input.val(existing_val + '{{ message }}');
+        }
+      }
+    });
   });
 });

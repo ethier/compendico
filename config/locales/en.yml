@@ -18,6 +18,7 @@ en:
   digests: Digests
   email: Email
   email_deleted: Email deleted
+  email_updated: Email updated
   emails: Emails
   false: False
   find_a_digest: Find a digest
@@ -61,6 +62,7 @@ en:
   organization_setup: Organization Setup
   plan: Plan
   pricing: Pricing
+  primary_organization_email_addresses_cannot_be_deleted: Email addresses attached to organizations must be changed prior to being deleted.
   queued: Queued
   remove_message: Remove message
   renew_automatically: Renew Automatically
