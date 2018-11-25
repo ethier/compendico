@@ -140,6 +140,12 @@ module Compendico
       )
     end
 
+    def eligible_to_send?(send_at)
+      send_at == send_at &&
+        messages.any? &&
+        organization.active_plan?
+    end
+
   private
 
     def set_send_at
@@ -160,6 +166,10 @@ module Compendico
       update_columns(:sending_at, Time.current)
 
       DigestMailer.send(uuid).deliver_later
+
+      # TODO: Ensure new digest doesn't have any messages on it.
+      new_digest = self.clone
+      new_digest.save!
     end
 
     def on_sent_entry

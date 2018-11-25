@@ -22,20 +22,24 @@
 
 <div class="spacer"></div>
 
-<p>Templates require a variable to replace. If you are creating a digest template, it must contain:
-
-<pre>{{ digest }}</pre>
-
-The contents of that variable will be replace with the digest contents.
-
-For a message template, use:
-
-<pre>{{ message }}</pre>
-
-<div class="spacer"></div>
-
 <div class="field">
   <%= f.label :markup, class: 'label is-medium' %>
+  <p>Templates require a variable to replace. If you are creating a digest template, it must contain:
+
+  <div class="spacer"></div>
+
+  <pre>{{ digest }}</pre>
+
+  The contents of that variable will be replace with the digest contents.
+
+  For a message template, use:
+
+  <div class="spacer"></div>
+
+  <pre>{{ message }}</pre>
+
+  <div class="spacer"></div>
+
   <p class="control">
     <%= f.text_area :markup, class: 'textarea is-medium' %>
   </p>

@@ -68,7 +68,7 @@ en:
   renew_automatically: Renew Automatically
   root_address: compendi.co
   schedule_instructions: Schedule instructions
-  schedule_instructions_text: "Sounds complicated, but it really isn't. An example, if you want to send an email weekly starting today, then it's <em>1 interval</em> with a <em>weekly frequency</em> with <em>send at set to today's date</em>."
+  schedule_instructions_text: "Sounds complicated, but it really isn't. An example, if you want to send a weekly email, starting today, then it's <em>1 interval</em> with a <em>weekly frequency</em> with <em>send at</em> set to today's date."
   search: Search
   select: Select
   send_at: Send at

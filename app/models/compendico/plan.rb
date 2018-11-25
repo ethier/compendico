@@ -17,5 +17,10 @@ module Compendico
     has_many :organizations, inverse_of: :plan
 
     scope :publicly_available, -> { where(publicly_available: true) }
+    scope :hold, -> { where(name: 'Hold')}
+
+    def on_hold?
+      name.downcase == 'Hold'
+    end
   end
 end

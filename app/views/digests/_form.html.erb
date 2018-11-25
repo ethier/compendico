@@ -62,17 +62,25 @@
 
 <%= content_tag :h3, t(:template), class: 'subtitle' %>
 
-<div class="field">
-  <%= f.label :template_id, class: 'label' %>
-  <p class="control has-icons-left">
-    <span class="select is-medium">
-      <%= f.select :template_id, @templates.collect { |t| [ t.name, t.id ] }, { include_blank: "-- #{t(:select)} --" }, { class: 'is-medium' } %>
-    </span>
-    <span class="icon is-small is-left">
-      <i class="fa fa-clone" aria-hidden="true"></i>
-    </span>
+<% if @templates.any? %>
+  <div class="field">
+    <%= f.label :template_id, class: 'label' %>
+    <p class="control has-icons-left">
+      <span class="select is-medium">
+        <%= f.select :template_id, @templates.collect { |t| [ t.name, t.id ] }, { include_blank: "-- #{t(:select)} --" }, { class: 'is-medium' } %>
+      </span>
+      <span class="icon is-small is-left">
+        <i class="fa fa-clone" aria-hidden="true"></i>
+      </span>
+    </p>
+  </div>
+<% else %>
+  <p>
+    <%= link_to t(:new), new_organization_digest_path(organization_id: @organization.id), class: 'button is-success' %>
   </p>
-</div>
+<% end %>
+
+<div class="spacer"></div>
 
 <div class="field">
   <%= f.label :text, class: 'label is-medium' %>
@@ -89,7 +97,7 @@
 </div>
 
 <div class="messages-list">
-  <%= content_tag :h3, t(:messages) %>
+  <%= content_tag :h3, t(:messages), class: 'subtitle' %>
 
   <%= f.fields_for :messages do |message| %>
     <%= render 'message_fields', f: message %>

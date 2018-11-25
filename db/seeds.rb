@@ -2,6 +2,7 @@ Compendico::Plan.create!(name: 'Developer', price: 0, credits: 100, publicly_ava
 Compendico::Plan.create!(name: 'Lite', price: 10, credits: 1000, publicly_available: true)
 Compendico::Plan.create!(name: 'Business', price: 20, credits: 5000, publicly_available: true)
 Compendico::Plan.create!(name: 'Pro', price: 50, credits: 20000, publicly_available: true)
+Compendico::Plan.create!(name: 'Hold', price: 0, credits: 0, publicly_available: false)
 
 user = Compendico::User.new
 user.email = 'derek.ethier@gmail.com'

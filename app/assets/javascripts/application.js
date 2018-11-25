@@ -104,16 +104,29 @@ $(function () {
     });
 
     $('#compendico_template_category').on('change', function() {
-      markup_input = $('#compendico_template_markup');
-      existing_val = markup_input.val();
+      var markup_input = $('#compendico_template_markup');
+      var existing_val = markup_input.val();
+
+      var message_var = '{{ message }}';
+      var digest_var = '{{ digest }}';
 
       if ($(this).val() == 'digest') {
-        if (existing_val.indexOf('{{ digest }}') == -1) {
-          markup_input.val(existing_val + '{{ digest }}');
+        if (existing_val.indexOf(message_var) > -1) {
+          markup_input.val(existing_val.replace(message_var, ''));
         }
-      } else if ($(this).val() == 'message') {
-        if (existing_val.indexOf('{{ message }}') == -1) {
-          markup_input.val(existing_val + '{{ message }}');
+
+        if (existing_val.indexOf(digest_var) == -1) {
+          markup_input.val(existing_val + digest_var);
+        }
+      }
+
+      if ($(this).val() == 'message') {
+        if (existing_val.indexOf(digest_var) > -1) {
+          markup_input.val(existing_val.replace(digest_var, ''));
+        }
+
+        if (existing_val.indexOf(message_var) == -1) {
+          markup_input.val(existing_val + message_var);
         }
       }
     });

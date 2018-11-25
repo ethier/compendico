@@ -4,11 +4,10 @@ class DigestWorker
   def perform(digest_id, send_at)
     digest = Digest.find(digest_id)
 
-    if digest.send_at == send_at && digest.messages.any?
+    if digest.eligible_to_send?(send_at)
       DigestMailer.send(digest_id).deliver
 
-      # TODO
-      # Update state and clone to make new digest.
+      digest.sent!
     end
   end
 end

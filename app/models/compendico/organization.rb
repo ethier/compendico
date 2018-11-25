@@ -31,9 +31,11 @@ module Compendico
 
     attribute :shared_secret
     attribute :mail_service_api_key
+    attribute :payment_token
 
     attr_encrypted :shared_secret, key: :encryption_key
     attr_encrypted :mail_service_api_key, key: :encryption_key
+    attr_encrypted :payment_token, key: :encryption_key
 
     belongs_to :plan
     belongs_to :mail_service
@@ -58,6 +60,26 @@ module Compendico
     validates :api_key, :shared_secret, presence: true
 
     accepts_nested_attributes_for :from_email
+
+    def active_plan?
+      return true if credits > 0
+      return false if plan.on_hold?
+
+      if renew_automatically?
+        renew!
+        return active_plan?
+      end
+
+      self.renew_automatically = false
+      save!
+
+      false
+    end
+
+    def renew!
+      # TODO: Implement renewal logic.
+      # If renewal fails, move to the Hold plan.
+    end
 
     def encryption_key
       Rails.application.credentials.secret_key_base
