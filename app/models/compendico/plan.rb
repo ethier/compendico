@@ -14,13 +14,15 @@
 
 module Compendico
   class Plan < ApplicationRecord
+    HOLD_PLAN_NAME = 'Hold'.freeze
+
     has_many :organizations, inverse_of: :plan
 
     scope :publicly_available, -> { where(publicly_available: true) }
-    scope :hold, -> { where(name: 'Hold')}
+    scope :hold, -> { where(name: HOLD_PLAN_NAME)}
 
     def on_hold?
-      name.downcase == 'Hold'
+      name.downcase == HOLD_PLAN_NAME
     end
   end
 end

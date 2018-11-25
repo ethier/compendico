@@ -53,9 +53,11 @@ module Compendico
       has_many :messages
       has_many :templates
       has_many :web_addresses
+      has_many :billings
     end
 
     before_validation :generate_api_key_shared_secret, on: :create
+    before_validation :generate_invoice_identity, on: :create
 
     validates :api_key, :shared_secret, presence: true
 
@@ -78,7 +80,8 @@ module Compendico
 
     def renew!
       # TODO: Implement renewal logic.
-      # If renewal fails, move to the Hold plan.
+      # If renewal fails, set renew automatically to false.
+      # If success, set generate billing and last_billed_at
     end
 
     def encryption_key
@@ -132,6 +135,10 @@ module Compendico
     def generate_api_key_shared_secret
       self.api_key        = SecureRandom.urlsafe_base64
       self.shared_secret  = SecureRandom.urlsafe_base64(64)
+    end
+
+    def generate_invoice_identity
+      # TODO: Implement a unique invoice identity generator.
     end
   end
 end

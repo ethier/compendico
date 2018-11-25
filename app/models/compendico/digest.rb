@@ -166,10 +166,6 @@ module Compendico
       update_columns(:sending_at, Time.current)
 
       DigestMailer.send(uuid).deliver_later
-
-      # TODO: Ensure new digest doesn't have any messages on it.
-      new_digest = self.clone
-      new_digest.save!
     end
 
     def on_sent_entry

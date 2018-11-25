@@ -14,6 +14,8 @@ class CreateOrganizations < ActiveRecord::Migration[5.1]
       t.string :encrypted_payment_token
       t.string :encrypted_payment_token_iv
 
+      t.string :invoice_identity, unique: true
+
       t.belongs_to :plan, type: :uuid
       t.belongs_to :mail_service, type: :uuid
 
@@ -26,6 +28,7 @@ class CreateOrganizations < ActiveRecord::Migration[5.1]
       t.integer :digests_count, null: false, default: 0
       t.integer :digests_sent_count, null: false, default: 0
       t.integer :emails_count, null: false, default: 0
+      t.integer :billings_count, null: false, default: 0
 
       t.datetime :last_billed_at, index: true
       t.datetime :discarded_at, index: true
