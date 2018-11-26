@@ -20,6 +20,20 @@ class EmailsController < ApplicationController
     @email = @organization.emails.new
   end
 
+  def create
+    email = Compendico::Email.new(email_params)
+    email.organization = @organization
+
+    if email.valid?
+      email.save!
+
+      redirect_to action: :index
+    else
+      flash[:alert] = email.errors.full_messages.join(', ')
+      redirect_to action: :new
+    end
+  end
+
   def edit
   end
 

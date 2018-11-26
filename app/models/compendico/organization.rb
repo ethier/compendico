@@ -9,6 +9,9 @@
 #  encrypted_shared_secret_iv        :string
 #  encrypted_mail_service_api_key    :string
 #  encrypted_mail_service_api_key_iv :string
+#  encrypted_payment_token           :string
+#  encrypted_payment_token_iv        :string
+#  invoice_identity                  :string
 #  plan_id                           :uuid
 #  mail_service_id                   :uuid
 #  credits                           :integer          default(100)
@@ -16,7 +19,10 @@
 #  data                              :jsonb
 #  templates_count                   :integer          default(0), not null
 #  digests_count                     :integer          default(0), not null
+#  digests_sent_count                :integer          default(0), not null
 #  emails_count                      :integer          default(0), not null
+#  billings_count                    :integer          default(0), not null
+#  last_billed_at                    :datetime
 #  discarded_at                      :datetime
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
@@ -62,6 +68,8 @@ module Compendico
     validates :api_key, :shared_secret, presence: true
 
     accepts_nested_attributes_for :from_email
+
+    scope :renew_automatically, -> { where(renew_automatically: true) }
 
     def active_plan?
       return true if credits > 0
@@ -113,7 +121,7 @@ module Compendico
     end
 
     def initials
-      name.split.map(&:first)[0..1].join
+      name.split.map(&:first)[0..1].join.upcase
     end
 
   private
@@ -138,7 +146,7 @@ module Compendico
     end
 
     def generate_invoice_identity
-      # TODO: Implement a unique invoice identity generator.
+      self.invoice_identity = SecureRandom.hex(3).upcase
     end
   end
 end

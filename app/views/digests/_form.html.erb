@@ -10,12 +10,8 @@
 
 <div class="field">
   <%= f.label :from_email, class: 'label' %>
-  <p class="control has-icons-left">
-    <%= f.hidden_field :from_email_id, value: f.object.from_email.present? ? f.object.from_email.id : nil %>
-    <%= f.text_field :from_email, type: :email, class: 'awesomplete-from-email input is-medium', value: f.object.from_email.present? ? f.object.from_email.address : nil, data: { url: organization_emails_path } %>
-    <span class="icon is-small is-left">
-      <i class="fa fa-calendar" aria-hidden="true"></i>
-    </span>
+  <p class="control select is-multiple">
+    <%= f.select :from_email, options_for_select(@organization.emails.sender.order(:address).map { |e| [e.address, e.id] }), { selected: f.object.from_email.present? ? f.object.from_email.id : nil }, { multiple: true, size: [@organization.emails.sender.size + 1, 2].max } %>
   </p>
 </div>
 
@@ -62,12 +58,12 @@
 
 <%= content_tag :h3, t(:template), class: 'subtitle' %>
 
-<% if @templates.any? %>
+<% if @digest_templates.any? %>
   <div class="field">
     <%= f.label :template_id, class: 'label' %>
     <p class="control has-icons-left">
       <span class="select is-medium">
-        <%= f.select :template_id, @templates.collect { |t| [ t.name, t.id ] }, { include_blank: "-- #{t(:select)} --" }, { class: 'is-medium' } %>
+        <%= f.select :template_id, @digest_templates.collect { |t| [ t.name, t.id ] }, { include_blank: "-- #{t(:select)} --" }, { class: 'is-medium' } %>
       </span>
       <span class="icon is-small is-left">
         <i class="fa fa-clone" aria-hidden="true"></i>
@@ -76,7 +72,7 @@
   </div>
 <% else %>
   <p>
-    <%= link_to t(:new), new_organization_digest_path(organization_id: @organization.id), class: 'button is-success' %>
+    <%= link_to t(:new), new_organization_template_path(organization_id: @organization.id), class: 'button is-success' %>
   </p>
 <% end %>
 

@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: compendico_billings
+#
+#  id              :uuid             not null, primary key
+#  organization_id :uuid
+#  receipt_url     :string
+#  amount          :decimal(, )
+#  credits         :integer
+#  invoice_number  :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
 class Compendico::Billing < ApplicationRecord
   belongs_to :organization
   counter_culture :organization
@@ -10,7 +24,7 @@ class Compendico::Billing < ApplicationRecord
 
   def set_invoice_number
     self.invoice_number =
-      "{organization.invoice_identity}-{(organizaton.billings_count + 1).to_s.rjust(4, '0')}"
+      "#{organization.initials}-#{organization.invoice_identity}-#{(organization.billings_count + 1).to_s.rjust(4, '0')}"
   end
 
   def save_generated_receipt

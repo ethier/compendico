@@ -66,7 +66,8 @@ private
   end
 
   def set_templates
-    @templates = @organization.templates.kept.digests
+    @digest_templates = @organization.templates.kept.digests
+    @message_templates = @organization.templates.kept.messages
   end
 
   def digest_params

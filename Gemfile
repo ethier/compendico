@@ -62,6 +62,8 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+  gem 'factory_bot_rails', '~> 4.11.1'
+  gem 'faker'
 end
 
 gem 'acts-as-taggable-on', '~> 6.0.0'

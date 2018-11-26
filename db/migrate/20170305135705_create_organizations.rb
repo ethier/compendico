@@ -14,7 +14,7 @@ class CreateOrganizations < ActiveRecord::Migration[5.1]
       t.string :encrypted_payment_token
       t.string :encrypted_payment_token_iv
 
-      t.string :invoice_identity, unique: true
+      t.string :invoice_identity, null: false, unique: true
 
       t.belongs_to :plan, type: :uuid
       t.belongs_to :mail_service, type: :uuid

@@ -1,0 +1,25 @@
+# == Schema Information
+#
+# Table name: compendico_plans
+#
+#  id                 :uuid             not null, primary key
+#  name               :string
+#  price              :decimal(, )
+#  credits            :integer
+#  publicly_available :boolean          default(FALSE)
+#  details            :jsonb
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#
+
+developer:
+  name: Developer
+  credits: 100
+
+pro:
+  name: Pro
+  credits: 20000
+
+hold:
+  name: Hold
+  credits: 0

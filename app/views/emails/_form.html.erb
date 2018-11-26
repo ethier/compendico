@@ -19,12 +19,13 @@
 </div>
 
 <div class="field">
+  <%= f.label :sender, class: 'label' %>
   <p class="control">
-    <%= f.label :from_email, class: 'radio' do %>
+    <%= f.label :sender, class: 'radio' do %>
       <%= f.radio_button :sender, true, checked: f.object.sender == true %>
       <%= t(:true) %>
     <% end %>
-    <%= f.label :from_email, class: 'radio' do %>
+    <%= f.label :sender, class: 'radio' do %>
       <%= f.radio_button :sender, false, checked: f.object.sender == false %>
       <%= t(:false) %>
     <% end %>

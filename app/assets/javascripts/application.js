@@ -19,35 +19,6 @@
 
 $(function () {
   document.addEventListener('turbolinks:load', function () {
-    if ($('.awesomplete-from-email').length > 0) {
-      var from_email = $('.awesomplete-from-email')[0];
-
-      var a = new Awesomplete(from_email, {
-        minChars: 3,
-        replace: function (suggestion) {
-          $('#compendico_digest_from_email_id').val(suggestion.value);
-          this.input.value = suggestion.label;
-        }
-      });
-
-      from_email.oninput = () => {
-        $.ajax({
-          type: 'get',
-          dataType: 'json',
-          url: from_email.dataset.url,
-          data: {
-            q: from_email.value
-          },
-          cache: false,
-          success: function (data) {
-            console.log(data);
-            a.list = data.emails;
-            a.evaluate();
-          }
-        });
-      };
-    }
-
     // Get all "navbar-burger" elements
     var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 

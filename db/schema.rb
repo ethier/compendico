@@ -10,12 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2017_07_04_013211) do
+ActiveRecord::Schema.define(version: 2018_11_25_024914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+
+  create_table "compendico_billings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "organization_id"
+    t.string "receipt_url"
+    t.decimal "amount"
+    t.integer "credits"
+    t.string "invoice_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_compendico_billings_on_organization_id"
+  end
 
   create_table "compendico_digest_messages", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "digest_id"
@@ -119,6 +130,9 @@ ActiveRecord::Schema.define(version: 2017_07_04_013211) do
     t.string "encrypted_shared_secret_iv"
     t.string "encrypted_mail_service_api_key"
     t.string "encrypted_mail_service_api_key_iv"
+    t.string "encrypted_payment_token"
+    t.string "encrypted_payment_token_iv"
+    t.string "invoice_identity"
     t.uuid "plan_id"
     t.uuid "mail_service_id"
     t.integer "credits", default: 100
@@ -126,12 +140,16 @@ ActiveRecord::Schema.define(version: 2017_07_04_013211) do
     t.jsonb "data", default: {}
     t.integer "templates_count", default: 0, null: false
     t.integer "digests_count", default: 0, null: false
+    t.integer "digests_sent_count", default: 0, null: false
     t.integer "emails_count", default: 0, null: false
+    t.integer "billings_count", default: 0, null: false
+    t.datetime "last_billed_at"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "from_email_id"
     t.index ["discarded_at"], name: "index_compendico_organizations_on_discarded_at"
+    t.index ["last_billed_at"], name: "index_compendico_organizations_on_last_billed_at"
     t.index ["mail_service_id"], name: "index_compendico_organizations_on_mail_service_id"
     t.index ["plan_id"], name: "index_compendico_organizations_on_plan_id"
   end
@@ -237,6 +255,7 @@ ActiveRecord::Schema.define(version: 2017_07_04_013211) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  add_foreign_key "compendico_billings", "compendico_organizations", column: "organization_id"
   add_foreign_key "compendico_digest_messages", "compendico_digests", column: "digest_id"
   add_foreign_key "compendico_digest_messages", "compendico_messages", column: "message_id"
   add_foreign_key "compendico_digests", "compendico_organizations", column: "organization_id"
