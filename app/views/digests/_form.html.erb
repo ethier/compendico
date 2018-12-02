@@ -72,7 +72,7 @@
   </div>
 <% else %>
   <p>
-    <%= link_to t(:new), new_organization_template_path(organization_id: @organization.id), class: 'button is-success' %>
+    <%= link_to t(:new), new_organization_template_path(organization_id: @organization.id, category: 'digest'), class: 'button is-success' %>
   </p>
 <% end %>
 

@@ -6,7 +6,7 @@ class CreatePlans < ActiveRecord::Migration[5.1]
       t.integer :credits
       t.boolean :publicly_available, default: false
 
-      t.jsonb :details, default: {}
+      t.jsonb :details, default: { 'details': [] }
 
       t.timestamps
     end

@@ -13,7 +13,16 @@ class TemplatesController < ApplicationController
   end
 
   def new
-    @template = @organization.templates.new
+    templates = @organization.templates
+
+    category = params[:category]
+
+    @template =
+      if category and Compendico::Template.categories.include?(category)
+        templates.send(category.pluralize).new
+      else
+        templates.new
+      end
   end
 
   def show
